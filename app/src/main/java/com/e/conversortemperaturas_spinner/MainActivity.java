@@ -36,8 +36,6 @@ public class MainActivity implements AdapterView.OnItemSelectedListener {
         editTextTemperaturas2 = editTextTemperaturas2.findViewById();
 
 
-
-
         adapterT = ArrayAdapter.createFromResource(this, R.array.temperaturas, android.R.layout.simple_spinner_item);
 
         adapterC = ArrayAdapter.createFromResource(this, R.array.temperaturas_centigrados, android.R.layout.simple_spinner_item);
