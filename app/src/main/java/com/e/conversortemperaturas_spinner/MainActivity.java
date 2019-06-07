@@ -45,6 +45,8 @@ public class MainActivity implements AdapterView.OnItemSelectedListener {
 
         spinnerTemperaturas.setAdapter(adapterT);
 
+        
+
         spinnerTemperaturas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
