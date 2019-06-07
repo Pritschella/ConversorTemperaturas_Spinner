@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txt_convertir"
+        android:layout_width="67dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="146dp"
+        android:layout_marginEnd="2dp"
+        android:gravity="center"
+        android:text="@string/txt_convertir"
+        app:layout_constraintEnd_toStartOf="@+id/editText_temperatura"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_temperatura"
+        android:layout_width="109dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="146dp"
+        android:layout_marginEnd="1dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/edit_text_temperatura"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_temperaturas"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner_temperaturas"
+        android:layout_width="116dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="146dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_A"
+        android:layout_width="28dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="44dp"
+        android:gravity="center"
+        android:text="@string/txt_a"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_temperaturas2"
+        app:layout_constraintTop_toBottomOf="@+id/txt_convertir" />
+
+    <Spinner
+        android:id="@+id/spinner_temperaturas2"
+        android:layout_width="147dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintEnd_toStartOf="@+id/txt_igual"
+        app:layout_constraintTop_toBottomOf="@+id/txt_convertir" />
+
+    <TextView
+        android:id="@+id/txt_igual"
+        android:layout_width="32dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="1dp"
+        android:gravity="center"
+        android:text="@string/txt_igual"
+        app:layout_constraintEnd_toStartOf="@+id/editText_resultado"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_temperaturas" />
+
+    <EditText
+        android:id="@+id/editText_resultado"
+        android:layout_width="81dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/edit_text_resultado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_temperaturas" />
+</android.support.constraint.ConstraintLayout>

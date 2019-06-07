@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="temperaturas">
+        <item>Elija una opción...</item>
+        <item>°Centigrados</item>
+        <item>°Fahrenheit</item>
+        <item>Rankine</item>
+        <item>Kelvin</item>
+    </string-array>
+
+
+    <string-array name="temperaturas_centigrados">
+        <item>...</item>
+        <item>°Fahrenheit</item>
+        <item>Rankine</item>
+        <item>Kelvin</item>
+    </string-array>
+
+    <string-array name="temperaturas_fahrenheit">
+        <item>...</item>
+        <item>°Centigrados</item>
+        <item>Rankine</item>
+        <item>Kelvin</item>
+    </string-array>
+
+    <string-array name="temperaturas_rankine">
+        <item>...</item>
+        <item>°Centigrados</item>
+        <item>°Fahrenheit</item>
+        <item>Kelvin</item>
+    </string-array>
+
+    <string-array name="temperaturas_kelvin">
+        <item>...</item>
+        <item>°Centigrados</item>
+        <item>°Fahrenheit</item>
+        <item>Rankine</item>
+    </string-array>
+
+</resources>
