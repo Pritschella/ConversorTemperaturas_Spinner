@@ -1,9 +1,7 @@
 package com.e.conversortemperaturas_spinner;
 
-import android.content.Context;
-import android.os.Build;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,150 +9,154 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.nio.file.Files;
+class ConversorTemperaturas{
 
-public class MainActivity implements AdapterView.OnItemSelectedListener {
+    public double centigradosAFahrenheit(double gradosC){
+        return gradosC*1.8+32;
+    }
+    public double fahrenheitACentigrados(double gradosF){
+        return (gradosF-32)/1.8;
+    }
+    public double fahrenheitAKelvin (double gradosF) {
+        return (gradosF+459.67)/1.8;
+    }
+    public double kelvinAFahrenheit(double gradosK) {
+        return ((9/5)*gradosK)-459.67;
+    }
+    public double fahrenheitARankine(double gradosF) {
+        return gradosF+459.67;
+    }
+    public double rankineAFahrenheit(double gradosR) {
+        return gradosR-459.67;
+    }
+    public double fahrenheitAReamur(double gradosF) {
+        return (gradosF-32)/2.25;
+    }
+    public double reamurAfahrenheit(double gradosRe) {
+        return (2.25*gradosRe)+32;
+    }
+    public double centigradosAKelvin(double gradosC) {
+        return gradosC+273.15;
+    }
+    public double kelvinACentigrados(double gradosK) {
+        return gradosK -273.15;
+    }
+}
 
-    EditText editTextTemperaturas1, editTextTemperaturas2;
-    Spinner spinnerTemperaturas, spinnerResultado;
 
-    ArrayAdapter adapterT, adapterC, adapterF, adapterK, adapterR;
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+    Spinner spinnerEntrada,spinnerSalida;
+    EditText entrada,salida;
 
-    double temp1 = 0, resultado = 0;
-
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        spinnerTemperaturas = findViewById(R.id.spinner_temperaturas);
-        spinnerResultado = findViewById(R.id.spinner_temperaturas2);
+        spinnerEntrada=findViewById(R.id.spinner_temperaturas);
+        spinnerSalida=findViewById(R.id.spinner_temperaturas2);
+        entrada=findViewById(R.id.editText_temperatura);
+        salida=findViewById(R.id.editText_resultado);
 
-        editTextTemperaturas1 = editTextTemperaturas1.findViewById();
-        editTextTemperaturas2 = editTextTemperaturas2.findViewById();
+        spinnerEntrada.setOnItemSelectedListener(this);
+        spinnerSalida.setOnItemSelectedListener(this);
 
+        String datos[]= {"Selecciona opcion...","Centigrados","Fahrenheit","Kelvin","Rankine","Reamur"};
+        ArrayAdapter adaptador=new ArrayAdapter(this,android.R.layout.simple_spinner_item,
+                datos);
 
-        adapterT = ArrayAdapter.createFromResource(this, R.array.temperaturas, android.R.layout.simple_spinner_item);
-
-        adapterC = ArrayAdapter.createFromResource(this, R.array.temperaturas_centigrados, android.R.layout.simple_spinner_item);
-        adapterF = ArrayAdapter.createFromResource(this, R.array.temperaturas_fahrenheit, android.R.layout.simple_spinner_item);
-        adapterK = ArrayAdapter.createFromResource(this, R.array.temperaturas_kelvin, android.R.layout.simple_spinner_item);
-        adapterR = ArrayAdapter.createFromResource(this, R.array.temperaturas_rankine, android.R.layout.simple_spinner_item);
-
-        spinnerTemperaturas.setAdapter(adapterT);
-
-        
-
-        spinnerTemperaturas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (parent.getSelectedItem().equals("°Centigrados")){
-                    spinnerResultado.setAdapter(adapterC);
-
-                    spinnerResultado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            temp1 = Double.parseDouble(editTextTemperaturas1.getText().toString());
-                            if (parent.getSelectedItem().equals("°Fahrenheit")){
-                                editTextTemperaturas2.setText(((1.8 * temp1) + 32) + "");
-                            }if (parent.getSelectedItem().equals("Kelvin")){
-                                editTextTemperaturas2.setText((temp1+273.15) + "");
-                            }if (parent.getSelectedItem().equals("Rankine")){
-                                editTextTemperaturas2.setText(((9*temp1)/5) + 491.67 + "");
-                            }
-
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-                }
-
-                if (parent.getSelectedItem().equals("°Fahrenheit")){
-                    spinnerResultado.setAdapter(adapterF);
-
-                    spinnerResultado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            temp1 = Double.parseDouble(editTextTemperaturas1.getText().toString());
-                            if (parent.getSelectedItem().equals("°Centigrados")){
-                                editTextTemperaturas2.setText((temp1 - 32) / 1.8 + "");
-                            }if (parent.getSelectedItem().equals("Kelvin")){
-                                editTextTemperaturas2.setText((temp1+459.67)/1.8 + "");
-                            }if (parent.getSelectedItem().equals("Rankine")){
-                                editTextTemperaturas2.setText((temp1 + 459.67) + "");
-                            }
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-                }
-
-                if (parent.getSelectedItem().equals("Rankine")){
-
-                    spinnerResultado.setAdapter(adapterR);
-
-                    spinnerResultado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            temp1 = Double.parseDouble(editTextTemperaturas1.getText().toString());
-                            if (parent.getSelectedItem().equals("°Centigrados")){
-                                editTextTemperaturas2.setText((temp1 /1.8) - 273.15 + "");
-                            }if (parent.getSelectedItem().equals("°Fahrenheit")){
-                                editTextTemperaturas2.setText((temp1 -459.67) + "");
-                            }if (parent.getSelectedItem().equals("Kelvin"))
-                                editTextTemperaturas2.setText(((5 * (temp1 - 491.67)) / 9) + 273.15 + "");
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-
-                }
-
-                if (parent.getSelectedItem().equals("Kelvin")){
-                    spinnerResultado.setAdapter(adapterK);
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
+        spinnerEntrada.setAdapter(adaptador);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String vectorC[] = {"Selecciona opcion...", "Fahrenheit", "Kelvin"};
+        String vectorF[] = {"Selecciona opcion...", "Centigrados", "Kelvin", "Rankine", "Reamur"};
+        String vectorK[] = {"Selecciona opcion...", "Fahrenheit", "Centigrados"};
+        String vectorR[] = {"Selecciona opcion...", "Fahrenheit"};
+        String vectorRe[] = {"Selecciona opcion...", "Fahrenheit"};
 
-        Toast.makeText(getApplicationContext(), parent.getSelectedItem().toString(),
-                Toast.LENGTH_LONG).show();
+        ArrayAdapter adapter = null;
+        if(parent.getId()==R.id.spinner_temperaturas) {
+            if (position == 1) {
+                adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                        vectorC);
+            }
+            if (position == 2) {
+                adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                        vectorF);
+            }
+            if (position == 3) {
+                adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                        vectorK);
+            }
+            if (position == 4) {
+                adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                        vectorR);
+            }
+            if (position == 5) {
+                adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                        vectorRe);
+            }
+            spinnerSalida.setAdapter(adapter);
+        }
+        if(parent.getId()==R.id.spinner_temperaturas2) {
+            double dato=Double.parseDouble(entrada.getText().toString());
+
+
+            if(spinnerEntrada.getSelectedItem().toString().equals("Centigrados")&&spinnerSalida.getSelectedItem().equals("Fahrenheit")) {
+                double resul=new ConversorTemperaturas().centigradosAFahrenheit(dato);
+                salida.setText(resul+"");
+            }
+            if(spinnerEntrada.getSelectedItem().toString().equals("Fahrenheit")&&spinnerSalida.getSelectedItem().equals("Centigrados")) {
+                double resul=new ConversorTemperaturas().fahrenheitACentigrados(dato);
+                salida.setText(resul+"");
+            }
+
+            if(spinnerEntrada.getSelectedItem().toString().equals("Fahrenheit")&&spinnerSalida.getSelectedItem().toString().equals("Kelvin")) {
+                double resul=new ConversorTemperaturas().fahrenheitAKelvin(dato);
+                salida.setText(resul+"");
+            }
+            if(spinnerEntrada.getSelectedItem().toString().equals("Kelvin")&&spinnerSalida.getSelectedItem().toString().equals("Fahrenheit")) {
+                double resul=new ConversorTemperaturas().kelvinAFahrenheit(dato);
+                salida.setText(resul+"");
+            }
+            if(spinnerEntrada.getSelectedItem().toString().equals("Fahrenheit")&&spinnerSalida.getSelectedItem().toString().equals("Rankine")) {
+                double resul=new ConversorTemperaturas().fahrenheitARankine(dato);
+                salida.setText(resul+"");
+            }
+            if(spinnerEntrada.getSelectedItem().toString().equals("Rankine")&&spinnerSalida.getSelectedItem().toString().equals("Fahrenheit")) {
+                double resul=new ConversorTemperaturas().rankineAFahrenheit(dato);
+                salida.setText(resul+"");
+            }
+            if(spinnerEntrada.getSelectedItem().toString().equals("Fahrenheit")&&spinnerSalida.getSelectedItem().toString().equals("Reamur")) {
+                double resul=new ConversorTemperaturas().fahrenheitAReamur(dato);
+                salida.setText(resul+"");
+            }
+            if(spinnerEntrada.getSelectedItem().toString().equals("Reamur")&&spinnerSalida.getSelectedItem().toString().equals("Fahrenheit")) {
+                double resul=new ConversorTemperaturas().reamurAfahrenheit(dato);
+                salida.setText(resul+"");
+            }
+            if(spinnerEntrada.getSelectedItem().toString().equals("Centigrados")&&spinnerSalida.getSelectedItem().toString().equals("Kelvin")) {
+                double resul=new ConversorTemperaturas().centigradosAKelvin(dato);
+                salida.setText(resul+"");
+            }
+            if(spinnerEntrada.getSelectedItem().toString().equals("Kelvin")&&spinnerSalida.getSelectedItem().toString().equals("Centigrados")) {
+                double resul=new ConversorTemperaturas().kelvinACentigrados(dato);
+                salida.setText(resul+"");
+            }
+
+
+        }
+
+
+
+
+
     }
-
-    private Context getApplicationContext() {
-    }
-
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onNothingSelected(AdapterView<?> parent){
 
     }
 
-    public void setContentView(int contentView) {
-        this.contentView = contentView;
-    }
-}//class
-
-
+}
